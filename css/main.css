@@ -35,6 +35,11 @@
   --technologies-intro-width: 460px;
   --doctor-text-width: 620px;
   --text-note: 14px;
+  --text-cta-final: 36px;
+  --text-footer: 13px;
+  --footer-logo: 22px;
+  --glyph-cta-size: 300px;
+  --cta-text-width: 520px;
   --focus-ring: 2px;
 
   /* Acima de 1440px o conteúdo fica numa coluna centralizada; o fundo segue a tela toda.
@@ -63,6 +68,10 @@
     --glyph-size: 640px;
     --hero-min-height: 820px;
     --text-note: 16px;
+    --text-cta-final: 56px;
+    --text-footer: 14px;
+    --footer-logo: 26px;
+    --glyph-cta-size: 560px;
     --page-inline: calc(var(--page-offset) + var(--page-gutter-desktop));
   }
 }
@@ -210,6 +219,15 @@ a:hover {
 
 .button--primary:hover {
   color: var(--on-accent);
+}
+
+.button--inverse {
+  background: var(--ink-inverse);
+  color: var(--ink);
+}
+
+.button--inverse:hover {
+  color: var(--ink);
 }
 
 .button--menu {
@@ -674,5 +692,143 @@ a:hover {
 
   .quote {
     gap: var(--space-5);
+  }
+}
+
+/* CTA final: única seção escura da página, com o glifo 미 ao fundo */
+.final-cta {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  overflow: hidden;
+  padding: calc(var(--section-y-mobile) + var(--space-4)) var(--page-inline);
+  background: var(--ink);
+}
+
+.final-cta :focus-visible {
+  outline-color: var(--ink-inverse);
+}
+
+.final-cta__glyph {
+  position: absolute;
+  right: calc(-1 * (var(--space-8) + var(--space-2)));
+  bottom: calc(-1 * (var(--space-12) + var(--space-3)));
+  font-family: var(--font-display);
+  font-size: var(--glyph-cta-size);
+  line-height: 1;
+  color: var(--ink-glyph);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Conteúdo acima do glifo */
+.final-cta > :not(.final-cta__glyph) {
+  position: relative;
+}
+
+.final-cta__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-cta-final);
+  line-height: 1.25;
+  color: var(--ink-inverse);
+}
+
+.final-cta__text {
+  font-size: var(--text-lead);
+  line-height: 1.7;
+  color: var(--ink-inverse-muted);
+}
+
+.final-cta .button {
+  margin-top: var(--space-2);
+}
+
+.final-cta__note {
+  font-size: var(--text-caption);
+  text-align: center;
+  color: var(--ink-inverse-muted);
+}
+
+@media (min-width: 1280px) {
+  .final-cta {
+    align-items: center;
+    gap: calc(var(--space-6) + var(--space-2));
+    padding-block: calc(var(--section-y-desktop) + var(--space-2));
+    text-align: center;
+  }
+
+  .final-cta__glyph {
+    right: calc(var(--page-offset) - (var(--space-12) + var(--space-3)));
+    bottom: calc(-1 * (var(--section-y-desktop) + var(--space-2)));
+  }
+
+  .final-cta__title {
+    line-height: 1.2;
+  }
+
+  .final-cta__text {
+    max-width: var(--cta-text-width);
+  }
+}
+
+/* Rodapé: continua o fundo escuro, separado do CTA por um fio */
+.site-footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-8) var(--page-inline) var(--space-12);
+  border-top: 1px solid var(--ink-line);
+  background: var(--ink);
+  color: var(--ink-inverse-muted);
+  font-size: var(--text-footer);
+  line-height: 1.7;
+}
+
+.site-footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.site-footer__logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--footer-logo);
+  line-height: 1.4;
+  color: var(--ink-inverse);
+}
+
+.site-footer__logo-name {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--text-footer);
+  letter-spacing: 0.06em;
+  color: var(--ink-inverse-muted);
+}
+
+/* No mobile, cada parte ocupa uma linha; no desktop, ficam separadas por "·" */
+.site-footer__line {
+  display: block;
+}
+
+.site-footer__sep {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .site-footer {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-12);
+    padding: var(--space-12) var(--page-inline) var(--space-14);
+    line-height: 1.8;
+  }
+
+  .site-footer__line,
+  .site-footer__sep {
+    display: inline;
   }
 }
