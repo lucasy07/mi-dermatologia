@@ -27,6 +27,12 @@
   --hero-text-width: 640px;
   --hero-lead-width: 520px;
   --focus-ring: 2px;
+
+  /* Acima de 1440px o conteúdo fica numa coluna centralizada; o fundo segue a tela toda.
+     --page-inline é o padding lateral de cada faixa da página (cabeçalho, seções). */
+  --page-max: 1440px;
+  --page-offset: max(0px, (100% - var(--page-max)) / 2);
+  --page-inline: var(--page-gutter-mobile);
 }
 
 @media (min-width: 1280px) {
@@ -45,6 +51,7 @@
     --arch-ratio: 480 / 640;
     --glyph-size: 640px;
     --hero-min-height: 820px;
+    --page-inline: calc(var(--page-offset) + var(--page-gutter-desktop));
   }
 }
 
@@ -102,7 +109,7 @@ a:hover {
 @media (min-width: 1280px) {
   .glyph {
     top: calc(var(--space-8) + var(--space-2));
-    left: calc(-1 * (var(--space-8) + var(--space-2)));
+    left: calc(var(--page-offset) - (var(--space-8) + var(--space-2)));
   }
 }
 
@@ -196,7 +203,7 @@ a:hover {
   align-items: center;
   justify-content: space-between;
   min-height: var(--header-height);
-  padding: 0 var(--page-gutter-mobile);
+  padding: 0 var(--page-inline);
 }
 
 .logo {
@@ -241,7 +248,7 @@ a:hover {
 
 @media (min-width: 1280px) {
   .site-header {
-    padding: 0 var(--page-gutter-desktop);
+    padding: 0 var(--page-inline);
   }
 
   .site-nav {
@@ -257,7 +264,7 @@ a:hover {
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
-  padding: var(--space-12) var(--page-gutter-mobile) calc(var(--space-14) + var(--space-2));
+  padding: var(--space-12) var(--page-inline) calc(var(--space-14) + var(--space-2));
 }
 
 .hero__text {
@@ -299,7 +306,7 @@ a:hover {
     justify-content: space-between;
     gap: calc(var(--space-12) + var(--space-8));
     min-height: var(--hero-min-height);
-    padding: calc(var(--space-14) + var(--space-2)) var(--page-gutter-desktop) var(--section-y-mobile);
+    padding: calc(var(--space-14) + var(--space-2)) var(--page-inline) var(--section-y-mobile);
   }
 
   .hero__text {
