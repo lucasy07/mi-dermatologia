@@ -991,4 +991,21 @@ html:not(.js) .menu-toggle {
   .motion .hero__title { animation-delay: var(--delay-title); }
   .motion .hero__lead { animation-delay: var(--delay-lead); }
   .motion .hero__action { animation-delay: var(--delay-action); }
+
+  /* Revelações no scroll: escondidos até o js/motion.js marcar "is-visible" */
+  .motion .step:not(.is-visible) {
+    opacity: 0;
+  }
+
+  .motion .arch--doctor:not(.is-visible) {
+    clip-path: inset(100% 0 0 0);
+  }
+
+  .motion .step.is-visible {
+    animation: rise var(--duration-rise) var(--ease-out-soft) var(--reveal-delay, 0ms) backwards;
+  }
+
+  .motion .arch--doctor.is-visible {
+    animation: arch-reveal var(--duration-arch) var(--ease-in-out-reveal) var(--reveal-delay, 0ms) backwards;
+  }
 }
