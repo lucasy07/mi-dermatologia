@@ -7,6 +7,7 @@
   --text-hero: 38px;
   --text-section: 32px;
   --text-quote: 19px;
+  --text-item: 22px;
   --text-lead: 17px;
   --text-body: 16px;
   --text-eyebrow: 15px;
@@ -28,6 +29,8 @@
   --hero-text-width: 640px;
   --hero-lead-width: 520px;
   --tension-width: 760px;
+  --philosophy-title-width: 620px;
+  --philosophy-note-width: 700px;
   --focus-ring: 2px;
 
   /* Acima de 1440px o conteúdo fica numa coluna centralizada; o fundo segue a tela toda.
@@ -42,6 +45,7 @@
     --text-hero: 66px;
     --text-section: 46px;
     --text-quote: 22px;
+    --text-item: 24px;
     --text-lead: 20px;
     --text-body: 17px;
 
@@ -142,6 +146,18 @@ a:hover {
   font-size: var(--text-quote);
   line-height: 1.6;
   color: var(--accent);
+}
+
+.body-muted {
+  color: var(--ink-muted);
+}
+
+/* Título de item (h3): etapas, princípios, tecnologias */
+.item-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-item);
+  line-height: 1.35;
 }
 
 /* Seções: faixa de largura total com padding vertical e margem lateral da página */
@@ -395,5 +411,53 @@ a:hover {
 
   .tension > * {
     max-width: var(--tension-width);
+  }
+}
+
+/* Filosofia: três princípios, cada um com fio superior; em colunas no desktop */
+.philosophy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.principles {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.principle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--line-strong);
+}
+
+.philosophy__note {
+  color: var(--accent);
+}
+
+@media (min-width: 1280px) {
+  .philosophy {
+    gap: var(--space-14);
+  }
+
+  .philosophy__title {
+    max-width: var(--philosophy-title-width);
+  }
+
+  .principles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-12);
+  }
+
+  .principle {
+    gap: var(--space-4);
+    padding-top: var(--space-6);
+  }
+
+  .philosophy__note {
+    max-width: var(--philosophy-note-width);
   }
 }
