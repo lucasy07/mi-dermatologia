@@ -32,6 +32,7 @@
   --philosophy-title-width: 620px;
   --philosophy-note-width: 700px;
   --step-title-width: 240px;
+  --technologies-intro-width: 460px;
   --focus-ring: 2px;
 
   /* Acima de 1440px o conteúdo fica numa coluna centralizada; o fundo segue a tela toda.
@@ -520,5 +521,53 @@ a:hover {
     display: grid;
     grid-template-columns: var(--step-title-width) minmax(0, 1fr);
     gap: var(--space-8);
+  }
+}
+
+/* Tecnologias: título e apoio em linha no desktop; cards celadon-050 sem borda */
+.technologies {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.cards {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6) var(--space-6) var(--space-8);
+  border-radius: var(--radius-md);
+  background: var(--celadon-050);
+}
+
+@media (min-width: 1280px) {
+  .technologies {
+    gap: var(--space-14);
+  }
+
+  .section-head--row {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-12);
+  }
+
+  .section-head--row > p {
+    max-width: var(--technologies-intro-width);
+  }
+
+  .cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+
+  .card {
+    gap: var(--space-4);
+    padding: calc(var(--space-8) + var(--space-2)) var(--space-8) calc(var(--space-8) + var(--space-3));
   }
 }
