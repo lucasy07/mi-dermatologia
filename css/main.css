@@ -6,6 +6,7 @@
 :root {
   --text-hero: 38px;
   --text-section: 32px;
+  --text-quote: 19px;
   --text-lead: 17px;
   --text-body: 16px;
   --text-eyebrow: 15px;
@@ -26,6 +27,7 @@
   --glyph-size: 340px;
   --hero-text-width: 640px;
   --hero-lead-width: 520px;
+  --tension-width: 760px;
   --focus-ring: 2px;
 
   /* Acima de 1440px o conteúdo fica numa coluna centralizada; o fundo segue a tela toda.
@@ -39,6 +41,7 @@
   :root {
     --text-hero: 66px;
     --text-section: 46px;
+    --text-quote: 22px;
     --text-lead: 20px;
     --text-body: 17px;
 
@@ -132,6 +135,39 @@ a:hover {
   font-size: var(--text-caption);
   line-height: 1.6;
   color: var(--ink-muted);
+}
+
+.closing {
+  font-family: var(--font-display);
+  font-size: var(--text-quote);
+  line-height: 1.6;
+  color: var(--accent);
+}
+
+/* Seções: faixa de largura total com padding vertical e margem lateral da página */
+.section {
+  padding: var(--section-y-mobile) var(--page-inline);
+}
+
+.section--alt {
+  background: var(--celadon-050);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-section);
+  line-height: 1.25;
+}
+
+@media (min-width: 1280px) {
+  .section {
+    padding-block: var(--section-y-desktop);
+  }
+
+  .section-title {
+    line-height: 1.2;
+  }
 }
 
 /* Botão: principal (hero), menu (cabeçalho) e inverso (CTA final) */
@@ -340,5 +376,24 @@ a:hover {
 
   .arch--hero {
     margin-top: 0;
+  }
+}
+
+/* Tensão: bloco de texto único; centralizado no desktop */
+.tension {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+@media (min-width: 1280px) {
+  .tension {
+    align-items: center;
+    gap: var(--space-6);
+    text-align: center;
+  }
+
+  .tension > * {
+    max-width: var(--tension-width);
   }
 }
