@@ -17,7 +17,8 @@ HTML, CSS e JavaScript puros. Sem frameworks, sem etapa de build, sem dependênc
 ```
 index.html        a página
 css/tokens.css    variáveis do design system (não editar sem pedir)
-css/main.css      layout e componentes
+css/main.css      layout e componentes (no topo: tamanhos do design system que não estão em tokens.css)
+js/menu.js        menu do mobile (abre/fecha a navegação do cabeçalho)
 js/motion.js      animações (entrada da hero e revelações no scroll)
 img/              fotos (ainda não existem)
 docs/             fontes da verdade (não são código do site)
@@ -55,6 +56,15 @@ Sem superlativos, sem promessa de resultado, sem antes e depois, sem comparaçã
 - As fotos ainda não existem: use a moldura em arco com a descrição entre colchetes, como nos mockups.
 - Endereço, número e horários do rodapé ficam como `[ENDEREÇO]`, `[NÚMERO]`, `[HORÁRIOS]`.
 - Pendente de validação com a médica: o terceiro depoimento (fala de resultado) e a mensagem pré-preenchida do WhatsApp.
+- Tamanhos de fonte e de componentes que não estão em `tokens.css` ficam como variáveis no topo de `css/main.css`. O `tokens.css` segue intocado.
+- Quando mockup e design system divergem em tamanhos (ex.: títulos de item 26px no mockup, 24px no design system), vale o design system.
+- Larguras: mobile até 767px; tablet de 768 a 1279px (layout do mobile numa coluna de 640px centralizada, botões na largura natural, arcos centralizados); desktop a partir de 1280px. Acima de 1440px o conteúdo fica numa coluna de 1440px centralizada e o fundo ocupa a tela toda. Toda faixa usa `--page-inline` como padding lateral.
+- Cabeçalho rola junto com a página (não é fixo).
+- Menu do mobile: painel abaixo do cabeçalho que empurra o conteúdo, com os 4 links e o botão "Agendar avaliação"; fecha ao tocar num link, com Esc ou no próprio botão. O ícone continua o de duas linhas. Sem JavaScript, a navegação fica sempre visível.
+- Perguntas frequentes ficam sempre abertas (sem acordeão).
+- Revelações no scroll: linhas do método e das perguntas (fade + subida, 160ms entre itens que entram juntos) e foto da médica (revelação do arco). Sem parallax do glifo. Animações só na tela (não na impressão).
+- Os botões "Agendar avaliação" têm o aviso "(abre o WhatsApp em nova aba)" só para leitores de tela.
+- Pendente de validação: o sobretítulo "A médica" vem do mockup e não está na copy do brief.
 
 ## Como verificar
 

@@ -1,0 +1,1023 @@
+/* Layout e componentes da Mi Dermatologia.
+   Mobile-first: estilos base = mobile (mockup de 390px).
+   768–1279px: tablet, layout do mobile numa coluna de leitura de 640px centralizada.
+   A partir de 1280px: layout de desktop (mockup de 1440px), com conteúdo limitado a 1440px. */
+
+/* Medidas de componentes e tipografia do design system que não estão em tokens.css */
+:root {
+  --text-hero: 38px;
+  --text-section: 32px;
+  --text-quote: 19px;
+  --text-item: 22px;
+  --text-lead: 17px;
+  --text-body: 16px;
+  --text-eyebrow: 15px;
+  --text-caption: 13px;
+  --text-button: 17px;
+  --text-button-menu: 15px;
+  --text-arch-placeholder: 15px;
+
+  --header-height: 72px;
+  --logo-mi: 24px;
+  --logo-name: 14px;
+  --logo-rule-height: 16px;
+  --touch-target: 44px;
+  --button-height: 52px;
+  --button-height-menu: 44px;
+  --arch-width: 342px;
+  --arch-ratio: 342 / 420;
+  --glyph-size: 340px;
+  --hero-text-width: 640px;
+  --hero-lead-width: 520px;
+  --tension-width: 760px;
+  --philosophy-title-width: 620px;
+  --philosophy-note-width: 700px;
+  --step-title-width: 240px;
+  --technologies-intro-width: 460px;
+  --doctor-text-width: 620px;
+  --text-note: 14px;
+  --text-cta-final: 36px;
+  --text-footer: 13px;
+  --footer-logo: 22px;
+  --glyph-cta-size: 300px;
+  --cta-text-width: 520px;
+  --reading-width: 640px;
+  --arch-radius: var(--radius-arch-mobile);
+
+  /* Entrada da hero: início de cada animação a partir do carregamento */
+  --rise-distance: 10px;
+  --delay-arch: 200ms;
+  --delay-eyebrow: 400ms;
+  --delay-title: 560ms;
+  --delay-lead: 780ms;
+  --delay-action: 960ms;
+  --focus-ring: 2px;
+
+  /* Acima de 1440px o conteúdo fica numa coluna centralizada; o fundo segue a tela toda.
+     --page-inline é o padding lateral de cada faixa da página (cabeçalho, seções). */
+  --page-max: 1440px;
+  --page-offset: max(0px, (100% - var(--page-max)) / 2);
+  --page-inline: var(--page-gutter-mobile);
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --text-hero: 66px;
+    --text-section: 46px;
+    --text-quote: 22px;
+    --text-item: 24px;
+    --text-lead: 20px;
+    --text-body: 17px;
+
+    --header-height: 96px;
+    --logo-mi: 28px;
+    --logo-name: 15px;
+    --logo-rule-height: 20px;
+    --button-height: 56px;
+    --arch-width: 480px;
+    --arch-ratio: 480 / 640;
+    --glyph-size: 640px;
+    --hero-min-height: 820px;
+    --text-note: 16px;
+    --text-cta-final: 56px;
+    --text-footer: 14px;
+    --footer-logo: 26px;
+    --glyph-cta-size: 560px;
+    --arch-radius: var(--radius-arch-desktop);
+    --page-inline: calc(var(--page-offset) + var(--page-gutter-desktop));
+  }
+}
+
+/* Tablet (768–1279px): layout do mobile numa coluna de leitura centralizada */
+@media (width >= 768px) and (width < 1280px) {
+  :root {
+    --page-inline: max(var(--space-12), (100% - var(--reading-width)) / 2);
+  }
+}
+
+/* Base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  overflow-x: clip;
+  background: var(--celadon-100);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.7;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--ink);
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+:focus-visible {
+  outline: var(--focus-ring) solid var(--ink);
+  outline-offset: var(--space-2);
+}
+
+/* Glifo 미 decorativo, atrás do cabeçalho e da hero */
+.glyph {
+  position: absolute;
+  top: var(--space-14);
+  left: calc(-1 * var(--space-6));
+  font-family: var(--font-display);
+  font-size: var(--glyph-size);
+  line-height: 1;
+  color: var(--celadon-200);
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (min-width: 1280px) {
+  .glyph {
+    top: calc(var(--space-8) + var(--space-2));
+    left: calc(var(--page-offset) - (var(--space-8) + var(--space-2)));
+  }
+}
+
+/* Textos reutilizáveis */
+.eyebrow {
+  font-size: var(--text-eyebrow);
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+.lead {
+  font-size: var(--text-lead);
+  line-height: 1.7;
+  color: var(--ink-muted);
+  text-wrap: pretty;
+}
+
+.caption {
+  font-size: var(--text-caption);
+  line-height: 1.6;
+  color: var(--ink-muted);
+}
+
+.closing {
+  font-family: var(--font-display);
+  font-size: var(--text-quote);
+  line-height: 1.6;
+  color: var(--accent);
+}
+
+.body-muted {
+  color: var(--ink-muted);
+}
+
+/* Título de item (h3): etapas, princípios, tecnologias */
+.item-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-item);
+  line-height: 1.35;
+}
+
+/* Texto só para leitores de tela (ex.: aviso de nova aba nos botões) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Seções: faixa de largura total com padding vertical e margem lateral da página */
+.section {
+  padding: var(--section-y-mobile) var(--page-inline);
+}
+
+.section--alt {
+  background: var(--celadon-050);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-section);
+  line-height: 1.25;
+}
+
+@media (min-width: 1280px) {
+  .section {
+    padding-block: var(--section-y-desktop);
+  }
+
+  .section-title {
+    line-height: 1.2;
+  }
+}
+
+/* Botão: principal (hero), menu (cabeçalho) e inverso (CTA final) */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--button-height);
+  padding: 0 var(--space-8);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-button);
+  text-decoration: none;
+}
+
+.button--primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.button--primary:hover {
+  color: var(--on-accent);
+}
+
+.button--inverse {
+  background: var(--ink-inverse);
+  color: var(--ink);
+}
+
+.button--inverse:hover {
+  color: var(--ink);
+}
+
+.button--menu {
+  min-height: var(--button-height-menu);
+  padding: 0 var(--space-5);
+  background: var(--ink);
+  color: var(--ink-inverse);
+  font-size: var(--text-button-menu);
+}
+
+.button--menu:hover {
+  color: var(--ink-inverse);
+}
+
+/* Moldura em arco (ArchFrame) */
+.arch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: var(--arch-width);
+  aspect-ratio: var(--arch-ratio);
+  padding: var(--space-8);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--arch-radius) var(--arch-radius) var(--radius-md) var(--radius-md);
+  background: var(--celadon-300);
+}
+
+.arch__placeholder {
+  font-size: var(--text-arch-placeholder);
+  line-height: 1.6;
+  text-align: center;
+  color: var(--ink-muted);
+}
+
+@media (min-width: 1280px) {
+  .arch {
+    flex-shrink: 0;
+    padding: var(--space-12);
+  }
+}
+
+/* Cabeçalho */
+.site-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--header-height);
+  padding: 0 var(--page-inline);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--header-height); /* mantém a altura da faixa com o menu aberto */
+  text-decoration: none;
+}
+
+.logo__mi {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--logo-mi);
+  line-height: 1;
+}
+
+.logo__rule {
+  width: 1px;
+  height: var(--logo-rule-height);
+  background: var(--sage-500);
+}
+
+.logo__name {
+  font-size: var(--logo-name);
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+
+/* Botão do menu (só no mobile): ícone de duas linhas, área de toque de 44px */
+.menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+/* Sem JavaScript o botão não funciona, então some e a navegação fica visível */
+html:not(.js) .menu-toggle {
+  display: none;
+}
+
+/* Navegação no mobile: painel abaixo do cabeçalho, empurrando o conteúdo */
+.site-header {
+  flex-wrap: wrap;
+}
+
+.site-nav {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  padding-bottom: var(--space-6);
+}
+
+.js .site-nav:not(.is-open) {
+  display: none;
+}
+
+.site-nav__link {
+  display: flex;
+  align-items: center;
+  min-height: var(--touch-target);
+  padding: var(--space-2) 0;
+  border-top: 1px solid var(--line);
+  font-size: var(--text-lead);
+  text-decoration: none;
+}
+
+.site-nav .button {
+  width: 100%;
+  margin-top: var(--space-4);
+}
+
+@media (min-width: 1280px) {
+  .site-header {
+    flex-wrap: nowrap;
+    padding: 0 var(--page-inline);
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  .site-nav,
+  .js .site-nav:not(.is-open) {
+    display: flex;
+    flex-direction: row;
+    flex-basis: auto;
+    align-items: center;
+    gap: calc(var(--space-8) + var(--space-2));
+    padding-bottom: 0;
+  }
+
+  .site-nav__link {
+    display: inline-flex;
+    padding: 0;
+    border-top: 0;
+    font-size: var(--text-button-menu);
+  }
+
+  .site-nav .button {
+    width: auto;
+    margin-top: 0;
+  }
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-12) var(--page-inline) calc(var(--space-14) + var(--space-2));
+}
+
+.hero__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-hero);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.hero__action {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.hero__action .button {
+  width: 100%;
+}
+
+.hero__action .caption {
+  text-align: center;
+}
+
+.arch--hero {
+  margin-top: var(--space-4);
+}
+
+@media (min-width: 1280px) {
+  .hero {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(var(--space-12) + var(--space-8));
+    min-height: var(--hero-min-height);
+    padding: calc(var(--space-14) + var(--space-2)) var(--page-inline) var(--section-y-mobile);
+  }
+
+  .hero__text {
+    gap: var(--space-8);
+    max-width: var(--hero-text-width);
+    padding-top: calc(var(--space-12) + var(--space-8));
+  }
+
+  .hero__title {
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  .hero .lead {
+    max-width: var(--hero-lead-width);
+  }
+
+  .hero__action {
+    align-items: flex-start;
+    gap: var(--space-5);
+    padding-top: var(--space-2);
+  }
+
+  .hero__action .button {
+    width: auto;
+  }
+
+  .hero__action .caption {
+    text-align: left;
+  }
+
+  .arch--hero {
+    margin-top: 0;
+  }
+}
+
+/* Tensão: bloco de texto único; centralizado no desktop */
+.tension {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+@media (min-width: 1280px) {
+  .tension {
+    align-items: center;
+    gap: var(--space-6);
+    text-align: center;
+  }
+
+  .tension > * {
+    max-width: var(--tension-width);
+  }
+}
+
+/* Filosofia: três princípios, cada um com fio superior; em colunas no desktop */
+.philosophy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.principles {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.principle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--line-strong);
+}
+
+.philosophy__note {
+  color: var(--accent);
+}
+
+@media (min-width: 1280px) {
+  .philosophy {
+    gap: var(--space-14);
+  }
+
+  .philosophy__title {
+    max-width: var(--philosophy-title-width);
+  }
+
+  .principles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-12);
+  }
+
+  .principle {
+    gap: var(--space-4);
+    padding-top: var(--space-6);
+  }
+
+  .philosophy__note {
+    max-width: var(--philosophy-note-width);
+  }
+}
+
+/* Seção dividida (método, perguntas): título nas colunas 1–4, conteúdo nas 6–12 */
+.split-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.section-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+@media (min-width: 1280px) {
+  .split-section {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--space-6);
+  }
+
+  .split-section > .section-title {
+    grid-column: 1 / span 4;
+  }
+
+  .split-section > .section-head {
+    grid-column: 1 / span 4;
+    gap: var(--space-5);
+  }
+
+  .split-section > :last-child {
+    grid-column: 6 / span 7;
+  }
+}
+
+/* StepList: itens separados por fios finos; a ordem vem da sequência, sem números */
+.step-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--line);
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5) 0;
+  border-top: 1px solid var(--line);
+}
+
+/* Perguntas frequentes: títulos de item menores (19px mobile, 22px desktop) */
+.step-list--faq {
+  --text-item: 19px;
+}
+
+@media (min-width: 1280px) {
+  .step-list--faq {
+    --text-item: 22px;
+  }
+
+  .step {
+    gap: var(--space-4);
+    padding: var(--space-6) 0;
+  }
+
+  /* Método: título e texto lado a lado */
+  .step-list--split .step {
+    display: grid;
+    grid-template-columns: var(--step-title-width) minmax(0, 1fr);
+    gap: var(--space-8);
+  }
+}
+
+/* Tecnologias: título e apoio em linha no desktop; cards celadon-050 sem borda */
+.technologies {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.cards {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6) var(--space-6) var(--space-8);
+  border-radius: var(--radius-md);
+  background: var(--celadon-050);
+}
+
+@media (min-width: 1280px) {
+  .technologies {
+    gap: var(--space-14);
+  }
+
+  .section-head--row {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-12);
+  }
+
+  .section-head--row > p {
+    max-width: var(--technologies-intro-width);
+  }
+
+  .cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+
+  .card {
+    gap: var(--space-4);
+    padding: calc(var(--space-8) + var(--space-2)) var(--space-8) calc(var(--space-8) + var(--space-3));
+  }
+}
+
+/* A médica: foto em arco e texto; lado a lado no desktop */
+.doctor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.doctor__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.doctor__note {
+  font-family: var(--font-sans);
+  font-size: var(--text-note);
+  color: var(--ink-muted);
+}
+
+.doctor__credentials {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 1280px) {
+  .doctor {
+    flex-direction: row;
+    align-items: center;
+    gap: calc(2 * var(--space-12));
+  }
+
+  /* Arco menor que o da hero: 440 × 580 */
+  .arch--doctor {
+    --arch-width: 440px;
+    --arch-ratio: 440 / 580;
+  }
+
+  .doctor__text {
+    gap: var(--space-6);
+    max-width: var(--doctor-text-width);
+  }
+}
+
+/* Depoimentos (Quote): frase em Batang, identificação discreta; colunas no desktop */
+.testimonials {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.quotes {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.quote {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+.quote__text {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-quote);
+  line-height: 1.6;
+}
+
+.quote__author {
+  font-size: var(--text-eyebrow);
+  color: var(--ink-muted);
+}
+
+@media (min-width: 1280px) {
+  .testimonials {
+    gap: var(--space-14);
+  }
+
+  .quotes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-12);
+  }
+
+  .quote {
+    gap: var(--space-5);
+  }
+}
+
+/* CTA final: única seção escura da página, com o glifo 미 ao fundo */
+.final-cta {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  overflow: hidden;
+  padding: calc(var(--section-y-mobile) + var(--space-4)) var(--page-inline);
+  background: var(--ink);
+}
+
+.final-cta :focus-visible {
+  outline-color: var(--ink-inverse);
+}
+
+.final-cta__glyph {
+  position: absolute;
+  right: calc(-1 * (var(--space-8) + var(--space-2)));
+  bottom: calc(-1 * (var(--space-12) + var(--space-3)));
+  font-family: var(--font-display);
+  font-size: var(--glyph-cta-size);
+  line-height: 1;
+  color: var(--ink-glyph);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Conteúdo acima do glifo */
+.final-cta > :not(.final-cta__glyph) {
+  position: relative;
+}
+
+.final-cta__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-cta-final);
+  line-height: 1.25;
+  color: var(--ink-inverse);
+}
+
+.final-cta__text {
+  font-size: var(--text-lead);
+  line-height: 1.7;
+  color: var(--ink-inverse-muted);
+}
+
+.final-cta .button {
+  margin-top: var(--space-2);
+}
+
+.final-cta__note {
+  font-size: var(--text-caption);
+  text-align: center;
+  color: var(--ink-inverse-muted);
+}
+
+@media (min-width: 1280px) {
+  .final-cta {
+    align-items: center;
+    gap: calc(var(--space-6) + var(--space-2));
+    padding-block: calc(var(--section-y-desktop) + var(--space-2));
+    text-align: center;
+  }
+
+  .final-cta__glyph {
+    right: calc(var(--page-offset) - (var(--space-12) + var(--space-3)));
+    bottom: calc(-1 * (var(--section-y-desktop) + var(--space-2)));
+  }
+
+  .final-cta__title {
+    line-height: 1.2;
+  }
+
+  .final-cta__text {
+    max-width: var(--cta-text-width);
+  }
+}
+
+/* Rodapé: continua o fundo escuro, separado do CTA por um fio */
+.site-footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-8) var(--page-inline) var(--space-12);
+  border-top: 1px solid var(--ink-line);
+  background: var(--ink);
+  color: var(--ink-inverse-muted);
+  font-size: var(--text-footer);
+  line-height: 1.7;
+}
+
+.site-footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.site-footer__logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--footer-logo);
+  line-height: 1.4;
+  color: var(--ink-inverse);
+}
+
+.site-footer__logo-name {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--text-footer);
+  letter-spacing: 0.06em;
+  color: var(--ink-inverse-muted);
+}
+
+/* No mobile, cada parte ocupa uma linha; no desktop, ficam separadas por "·" */
+.site-footer__line {
+  display: block;
+}
+
+.site-footer__sep {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .site-footer {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-12);
+    padding: var(--space-12) var(--page-inline) var(--space-14);
+    line-height: 1.8;
+  }
+
+  .site-footer__line,
+  .site-footer__sep {
+    display: inline;
+  }
+}
+
+/* Tablet: botões na largura natural, arcos centralizados, glifos acompanham a coluna */
+@media (width >= 768px) and (width < 1280px) {
+  .hero__action,
+  .site-nav {
+    align-items: flex-start;
+  }
+
+  .hero__action .button,
+  .site-nav .button {
+    width: auto;
+  }
+
+  .hero__action .caption {
+    text-align: left;
+  }
+
+  .final-cta {
+    align-items: flex-start;
+  }
+
+  .final-cta__note {
+    text-align: left;
+  }
+
+  .arch {
+    align-self: center;
+  }
+
+  .glyph {
+    left: calc(var(--page-inline) - var(--space-12));
+  }
+
+  .final-cta__glyph {
+    right: calc(var(--page-inline) - var(--space-12) - var(--space-3));
+  }
+}
+
+/* Movimento: entrada da hero (uma vez, no carregamento).
+   Só transform, opacity e clip-path; nada roda sem a classe "motion" (ver js/motion.js). */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--rise-distance));
+  }
+}
+
+@keyframes glyph-in {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes arch-reveal {
+  from {
+    clip-path: inset(100% 0 0 0 round var(--arch-radius) var(--arch-radius) var(--radius-md) var(--radius-md));
+  }
+  to {
+    clip-path: inset(0 round var(--arch-radius) var(--arch-radius) var(--radius-md) var(--radius-md));
+  }
+}
+
+/* Só na tela: na impressão, tudo aparece no estado final */
+@media screen and (prefers-reduced-motion: no-preference) {
+  .motion .glyph {
+    transform-origin: 30% 40%;
+    animation: glyph-in var(--duration-glyph) var(--ease-out-soft) backwards;
+  }
+
+  .motion .arch--hero {
+    animation: arch-reveal var(--duration-arch) var(--ease-in-out-reveal) var(--delay-arch) backwards;
+  }
+
+  .motion .hero__eyebrow,
+  .motion .hero__title,
+  .motion .hero__lead,
+  .motion .hero__action {
+    animation: rise var(--duration-rise) var(--ease-out-soft) backwards;
+  }
+
+  .motion .hero__eyebrow { animation-delay: var(--delay-eyebrow); }
+  .motion .hero__title { animation-delay: var(--delay-title); }
+  .motion .hero__lead { animation-delay: var(--delay-lead); }
+  .motion .hero__action { animation-delay: var(--delay-action); }
+
+  /* Revelações no scroll: escondidos até o js/motion.js marcar "is-visible" */
+  .motion .step:not(.is-visible) {
+    opacity: 0;
+  }
+
+  .motion .arch--doctor:not(.is-visible) {
+    clip-path: inset(100% 0 0 0);
+  }
+
+  .motion .step.is-visible {
+    animation: rise var(--duration-rise) var(--ease-out-soft) var(--reveal-delay, 0ms) backwards;
+  }
+
+  .motion .arch--doctor.is-visible {
+    animation: arch-reveal var(--duration-arch) var(--ease-in-out-reveal) var(--reveal-delay, 0ms) backwards;
+  }
+}
