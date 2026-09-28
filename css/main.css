@@ -1,6 +1,7 @@
 /* Layout e componentes da Mi Dermatologia.
-   Mobile-first: estilos base = 390px; a partir de 1280px, layout de desktop (1440px).
-   O ponto de 1280px é provisório até decidirmos o comportamento em tablet. */
+   Mobile-first: estilos base = mobile (mockup de 390px).
+   768–1279px: tablet, layout do mobile numa coluna de leitura de 640px centralizada.
+   A partir de 1280px: layout de desktop (mockup de 1440px), com conteúdo limitado a 1440px. */
 
 /* Medidas de componentes e tipografia do design system que não estão em tokens.css */
 :root {
@@ -190,6 +191,16 @@ a:hover {
   font-weight: 700;
   font-size: var(--text-item);
   line-height: 1.35;
+}
+
+/* Texto só para leitores de tela (ex.: aviso de nova aba nos botões) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 /* Seções: faixa de largura total com padding vertical e margem lateral da página */
@@ -970,7 +981,8 @@ html:not(.js) .menu-toggle {
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
+/* Só na tela: na impressão, tudo aparece no estado final */
+@media screen and (prefers-reduced-motion: no-preference) {
   .motion .glyph {
     transform-origin: 30% 40%;
     animation: glyph-in var(--duration-glyph) var(--ease-out-soft) backwards;
