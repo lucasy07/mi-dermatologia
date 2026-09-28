@@ -41,6 +41,15 @@
   --glyph-cta-size: 300px;
   --cta-text-width: 520px;
   --reading-width: 640px;
+  --arch-radius: var(--radius-arch-mobile);
+
+  /* Entrada da hero: início de cada animação a partir do carregamento */
+  --rise-distance: 10px;
+  --delay-arch: 200ms;
+  --delay-eyebrow: 400ms;
+  --delay-title: 560ms;
+  --delay-lead: 780ms;
+  --delay-action: 960ms;
   --focus-ring: 2px;
 
   /* Acima de 1440px o conteúdo fica numa coluna centralizada; o fundo segue a tela toda.
@@ -73,6 +82,7 @@
     --text-footer: 14px;
     --footer-logo: 26px;
     --glyph-cta-size: 560px;
+    --arch-radius: var(--radius-arch-desktop);
     --page-inline: calc(var(--page-offset) + var(--page-gutter-desktop));
   }
 }
@@ -260,7 +270,7 @@ a:hover {
   aspect-ratio: var(--arch-ratio);
   padding: var(--space-8);
   border: 1px solid var(--line-strong);
-  border-radius: var(--radius-arch-mobile) var(--radius-arch-mobile) var(--radius-md) var(--radius-md);
+  border-radius: var(--arch-radius) var(--arch-radius) var(--radius-md) var(--radius-md);
   background: var(--celadon-300);
 }
 
@@ -275,7 +285,6 @@ a:hover {
   .arch {
     flex-shrink: 0;
     padding: var(--space-12);
-    border-radius: var(--radius-arch-desktop) var(--radius-arch-desktop) var(--radius-md) var(--radius-md);
   }
 }
 
@@ -934,4 +943,52 @@ html:not(.js) .menu-toggle {
   .final-cta__glyph {
     right: calc(var(--page-inline) - var(--space-12) - var(--space-3));
   }
+}
+
+/* Movimento: entrada da hero (uma vez, no carregamento).
+   Só transform, opacity e clip-path; nada roda sem a classe "motion" (ver js/motion.js). */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--rise-distance));
+  }
+}
+
+@keyframes glyph-in {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes arch-reveal {
+  from {
+    clip-path: inset(100% 0 0 0 round var(--arch-radius) var(--arch-radius) var(--radius-md) var(--radius-md));
+  }
+  to {
+    clip-path: inset(0 round var(--arch-radius) var(--arch-radius) var(--radius-md) var(--radius-md));
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .motion .glyph {
+    transform-origin: 30% 40%;
+    animation: glyph-in var(--duration-glyph) var(--ease-out-soft) backwards;
+  }
+
+  .motion .arch--hero {
+    animation: arch-reveal var(--duration-arch) var(--ease-in-out-reveal) var(--delay-arch) backwards;
+  }
+
+  .motion .hero__eyebrow,
+  .motion .hero__title,
+  .motion .hero__lead,
+  .motion .hero__action {
+    animation: rise var(--duration-rise) var(--ease-out-soft) backwards;
+  }
+
+  .motion .hero__eyebrow { animation-delay: var(--delay-eyebrow); }
+  .motion .hero__title { animation-delay: var(--delay-title); }
+  .motion .hero__lead { animation-delay: var(--delay-lead); }
+  .motion .hero__action { animation-delay: var(--delay-action); }
 }
