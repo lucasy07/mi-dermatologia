@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap">
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/main.css">
+  <script src="js/menu.js"></script>
 </head>
 <body>
   <span class="glyph" aria-hidden="true">미</span>
@@ -19,7 +20,10 @@
       <span class="logo__rule"></span>
       <span class="logo__name">Dermatologia</span>
     </a>
-    <nav class="site-nav" aria-label="Principal">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 8h16"/><path d="M4 16h16"/></svg>
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="Principal">
       <a class="site-nav__link" href="#metodo">Método</a>
       <a class="site-nav__link" href="#tecnologias">Tecnologias</a>
       <a class="site-nav__link" href="#medica">A médica</a>

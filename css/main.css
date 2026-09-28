@@ -285,7 +285,7 @@ a:hover {
   display: inline-flex;
   align-items: center;
   gap: var(--space-3);
-  min-height: var(--touch-target);
+  min-height: var(--header-height); /* mantém a altura da faixa com o menu aberto */
   text-decoration: none;
 }
 
@@ -308,28 +308,86 @@ a:hover {
   color: var(--ink-muted);
 }
 
-/* No mobile, a navegação fica escondida até o passo do menu */
+/* Botão do menu (só no mobile): ícone de duas linhas, área de toque de 44px */
+.menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+/* Sem JavaScript o botão não funciona, então some e a navegação fica visível */
+html:not(.js) .menu-toggle {
+  display: none;
+}
+
+/* Navegação no mobile: painel abaixo do cabeçalho, empurrando o conteúdo */
+.site-header {
+  flex-wrap: wrap;
+}
+
 .site-nav {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  padding-bottom: var(--space-6);
+}
+
+.js .site-nav:not(.is-open) {
   display: none;
 }
 
 .site-nav__link {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   min-height: var(--touch-target);
-  font-size: var(--text-button-menu);
+  padding: var(--space-2) 0;
+  border-top: 1px solid var(--line);
+  font-size: var(--text-lead);
   text-decoration: none;
+}
+
+.site-nav .button {
+  width: 100%;
+  margin-top: var(--space-4);
 }
 
 @media (min-width: 1280px) {
   .site-header {
+    flex-wrap: nowrap;
     padding: 0 var(--page-inline);
   }
 
-  .site-nav {
+  .menu-toggle {
+    display: none;
+  }
+
+  .site-nav,
+  .js .site-nav:not(.is-open) {
     display: flex;
+    flex-direction: row;
+    flex-basis: auto;
     align-items: center;
     gap: calc(var(--space-8) + var(--space-2));
+    padding-bottom: 0;
+  }
+
+  .site-nav__link {
+    display: inline-flex;
+    padding: 0;
+    border-top: 0;
+    font-size: var(--text-button-menu);
+  }
+
+  .site-nav .button {
+    width: auto;
+    margin-top: 0;
   }
 }
 
