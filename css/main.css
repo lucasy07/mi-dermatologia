@@ -40,6 +40,7 @@
   --footer-logo: 22px;
   --glyph-cta-size: 300px;
   --cta-text-width: 520px;
+  --reading-width: 640px;
   --focus-ring: 2px;
 
   /* Acima de 1440px o conteúdo fica numa coluna centralizada; o fundo segue a tela toda.
@@ -73,6 +74,13 @@
     --footer-logo: 26px;
     --glyph-cta-size: 560px;
     --page-inline: calc(var(--page-offset) + var(--page-gutter-desktop));
+  }
+}
+
+/* Tablet (768–1279px): layout do mobile numa coluna de leitura centralizada */
+@media (width >= 768px) and (width < 1280px) {
+  :root {
+    --page-inline: max(var(--space-12), (100% - var(--reading-width)) / 2);
   }
 }
 
@@ -888,5 +896,42 @@ html:not(.js) .menu-toggle {
   .site-footer__line,
   .site-footer__sep {
     display: inline;
+  }
+}
+
+/* Tablet: botões na largura natural, arcos centralizados, glifos acompanham a coluna */
+@media (width >= 768px) and (width < 1280px) {
+  .hero__action,
+  .site-nav {
+    align-items: flex-start;
+  }
+
+  .hero__action .button,
+  .site-nav .button {
+    width: auto;
+  }
+
+  .hero__action .caption {
+    text-align: left;
+  }
+
+  .final-cta {
+    align-items: flex-start;
+  }
+
+  .final-cta__note {
+    text-align: left;
+  }
+
+  .arch {
+    align-self: center;
+  }
+
+  .glyph {
+    left: calc(var(--page-inline) - var(--space-12));
+  }
+
+  .final-cta__glyph {
+    right: calc(var(--page-inline) - var(--space-12) - var(--space-3));
   }
 }
