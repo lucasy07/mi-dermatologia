@@ -1,0 +1,337 @@
+/* Layout e componentes da Mi Dermatologia.
+   Mobile-first: estilos base = 390px; a partir de 1280px, layout de desktop (1440px).
+   O ponto de 1280px é provisório até decidirmos o comportamento em tablet. */
+
+/* Medidas de componentes e tipografia do design system que não estão em tokens.css */
+:root {
+  --text-hero: 38px;
+  --text-section: 32px;
+  --text-lead: 17px;
+  --text-body: 16px;
+  --text-eyebrow: 15px;
+  --text-caption: 13px;
+  --text-button: 17px;
+  --text-button-menu: 15px;
+  --text-arch-placeholder: 15px;
+
+  --header-height: 72px;
+  --logo-mi: 24px;
+  --logo-name: 14px;
+  --logo-rule-height: 16px;
+  --touch-target: 44px;
+  --button-height: 52px;
+  --button-height-menu: 44px;
+  --arch-width: 342px;
+  --arch-ratio: 342 / 420;
+  --glyph-size: 340px;
+  --hero-text-width: 640px;
+  --hero-lead-width: 520px;
+  --focus-ring: 2px;
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --text-hero: 66px;
+    --text-section: 46px;
+    --text-lead: 20px;
+    --text-body: 17px;
+
+    --header-height: 96px;
+    --logo-mi: 28px;
+    --logo-name: 15px;
+    --logo-rule-height: 20px;
+    --button-height: 56px;
+    --arch-width: 480px;
+    --arch-ratio: 480 / 640;
+    --glyph-size: 640px;
+    --hero-min-height: 820px;
+  }
+}
+
+/* Base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  overflow-x: clip;
+  background: var(--celadon-100);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.7;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--ink);
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+:focus-visible {
+  outline: var(--focus-ring) solid var(--ink);
+  outline-offset: var(--space-2);
+}
+
+/* Glifo 미 decorativo, atrás do cabeçalho e da hero */
+.glyph {
+  position: absolute;
+  top: var(--space-14);
+  left: calc(-1 * var(--space-6));
+  font-family: var(--font-display);
+  font-size: var(--glyph-size);
+  line-height: 1;
+  color: var(--celadon-200);
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (min-width: 1280px) {
+  .glyph {
+    top: calc(var(--space-8) + var(--space-2));
+    left: calc(-1 * (var(--space-8) + var(--space-2)));
+  }
+}
+
+/* Textos reutilizáveis */
+.eyebrow {
+  font-size: var(--text-eyebrow);
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+.lead {
+  font-size: var(--text-lead);
+  line-height: 1.7;
+  color: var(--ink-muted);
+  text-wrap: pretty;
+}
+
+.caption {
+  font-size: var(--text-caption);
+  line-height: 1.6;
+  color: var(--ink-muted);
+}
+
+/* Botão: principal (hero), menu (cabeçalho) e inverso (CTA final) */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--button-height);
+  padding: 0 var(--space-8);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-button);
+  text-decoration: none;
+}
+
+.button--primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.button--primary:hover {
+  color: var(--on-accent);
+}
+
+.button--menu {
+  min-height: var(--button-height-menu);
+  padding: 0 var(--space-5);
+  background: var(--ink);
+  color: var(--ink-inverse);
+  font-size: var(--text-button-menu);
+}
+
+.button--menu:hover {
+  color: var(--ink-inverse);
+}
+
+/* Moldura em arco (ArchFrame) */
+.arch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: var(--arch-width);
+  aspect-ratio: var(--arch-ratio);
+  padding: var(--space-8);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-arch-mobile) var(--radius-arch-mobile) var(--radius-md) var(--radius-md);
+  background: var(--celadon-300);
+}
+
+.arch__placeholder {
+  font-size: var(--text-arch-placeholder);
+  line-height: 1.6;
+  text-align: center;
+  color: var(--ink-muted);
+}
+
+@media (min-width: 1280px) {
+  .arch {
+    flex-shrink: 0;
+    padding: var(--space-12);
+    border-radius: var(--radius-arch-desktop) var(--radius-arch-desktop) var(--radius-md) var(--radius-md);
+  }
+}
+
+/* Cabeçalho */
+.site-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--header-height);
+  padding: 0 var(--page-gutter-mobile);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--touch-target);
+  text-decoration: none;
+}
+
+.logo__mi {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--logo-mi);
+  line-height: 1;
+}
+
+.logo__rule {
+  width: 1px;
+  height: var(--logo-rule-height);
+  background: var(--sage-500);
+}
+
+.logo__name {
+  font-size: var(--logo-name);
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+
+/* No mobile, a navegação fica escondida até o passo do menu */
+.site-nav {
+  display: none;
+}
+
+.site-nav__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-target);
+  font-size: var(--text-button-menu);
+  text-decoration: none;
+}
+
+@media (min-width: 1280px) {
+  .site-header {
+    padding: 0 var(--page-gutter-desktop);
+  }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--space-8) + var(--space-2));
+  }
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-12) var(--page-gutter-mobile) calc(var(--space-14) + var(--space-2));
+}
+
+.hero__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-hero);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.hero__action {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.hero__action .button {
+  width: 100%;
+}
+
+.hero__action .caption {
+  text-align: center;
+}
+
+.arch--hero {
+  margin-top: var(--space-4);
+}
+
+@media (min-width: 1280px) {
+  .hero {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(var(--space-12) + var(--space-8));
+    min-height: var(--hero-min-height);
+    padding: calc(var(--space-14) + var(--space-2)) var(--page-gutter-desktop) var(--section-y-mobile);
+  }
+
+  .hero__text {
+    gap: var(--space-8);
+    max-width: var(--hero-text-width);
+    padding-top: calc(var(--space-12) + var(--space-8));
+  }
+
+  .hero__title {
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  .hero .lead {
+    max-width: var(--hero-lead-width);
+  }
+
+  .hero__action {
+    align-items: flex-start;
+    gap: var(--space-5);
+    padding-top: var(--space-2);
+  }
+
+  .hero__action .button {
+    width: auto;
+  }
+
+  .hero__action .caption {
+    text-align: left;
+  }
+
+  .arch--hero {
+    margin-top: 0;
+  }
+}
