@@ -1,0 +1,54 @@
+/* Tokens do design system Mi Dermatologia.
+   Fonte única dos valores: use sempre estas variáveis, nunca valores soltos no CSS. */
+
+:root {
+  /* Cores */
+  --celadon-100: #dce5de;
+  --celadon-050: #f2f5f2;
+  --celadon-200: #ccd9cf;
+  --celadon-300: #c3d2c8;
+  --line-strong: #a9bdb0;
+  --line: #b9c9be;
+  --sage-500: #7e948a;
+  --ink: #1b2a24;
+  --ink-muted: #3f5249;
+  --accent: #3e6b5a;
+  --on-accent: #ffffff;
+  --ink-inverse: #eef3ef;
+  --ink-inverse-muted: #c4d2c9;
+  --ink-glyph: #22342c;
+  --ink-line: #33473e;
+
+  /* Famílias tipográficas (Google Fonts: Gowun Batang 400/700, Gowun Dodum 400) */
+  --font-display: "Gowun Batang", "Nanum Myeongjo", Georgia, serif;
+  --font-sans: "Gowun Dodum", "Helvetica Neue", sans-serif;
+
+  /* Espaçamento */
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-14: 56px;
+  --page-gutter-desktop: 88px;
+  --page-gutter-mobile: 24px;
+  --section-y-desktop: 112px;
+  --section-y-mobile: 72px;
+
+  /* Raios */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-arch-desktop: 240px;
+  --radius-arch-mobile: 171px;
+
+  /* Durações */
+  --duration-rise: 1000ms;
+  --duration-arch: 1600ms;
+  --duration-glyph: 2400ms;
+
+  /* Curvas de easing */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-reveal: cubic-bezier(0.65, 0, 0.35, 1);
+}
